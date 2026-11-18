@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi UTS Big Data - Politeknik Caltex Riau</title>
+    <title>Simulasi UTS Big Data (20 Objektif & 5 Esai)</title>
     <style>
         :root {
             --primary: #1e3a8a;
-            --primary-light: #3b82f6;
+            --primary-light: #2563eb;
             --bg: #f1f5f9;
             --card: #ffffff;
             --text: #1e293b;
@@ -28,38 +28,50 @@
         }
 
         .container {
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         header {
-            background: var(--primary);
+            background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
             color: white;
             padding: 25px 30px;
             border-radius: 12px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            margin: 0 0 5px 0;
-            font-size: 1.6rem;
+            margin: 0 0 8px 0;
+            font-size: 1.65rem;
         }
 
         header p {
             margin: 0;
-            opacity: 0.9;
+            opacity: 0.92;
             font-size: 0.95rem;
         }
 
         .section-title {
             background: #e2e8f0;
-            padding: 10px 18px;
+            padding: 12px 18px;
             border-left: 5px solid var(--primary);
             border-radius: 6px;
             font-weight: bold;
             font-size: 1.15rem;
-            margin: 30px 0 15px 0;
+            margin: 35px 0 18px 0;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         .question-card {
@@ -67,14 +79,14 @@
             padding: 22px;
             border-radius: 10px;
             margin-bottom: 18px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             border: 1px solid var(--border);
         }
 
         .question-text {
             font-weight: 600;
             margin-bottom: 14px;
-            font-size: 1.05rem;
+            font-size: 1.03rem;
         }
 
         pre {
@@ -84,6 +96,7 @@
             border-radius: 8px;
             overflow-x: auto;
             font-size: 0.9rem;
+            margin: 10px 0;
         }
 
         .options label {
@@ -93,16 +106,17 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .options label:hover {
             background: #f8fafc;
+            border-color: #94a3b8;
         }
 
         .options input[type="radio"] {
             margin-right: 10px;
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         textarea {
@@ -157,12 +171,12 @@
             border-collapse: collapse;
             margin-top: 10px;
             background: white;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         th, td {
             border: 1px solid #94a3b8;
-            padding: 10px;
+            padding: 9px 11px;
             text-align: left;
         }
 
@@ -174,17 +188,21 @@
         .diagram-box {
             background: #ffffff;
             border: 2px dashed #64748b;
-            padding: 15px;
+            padding: 14px;
             border-radius: 8px;
             font-family: monospace;
             white-space: pre-wrap;
             margin: 10px 0;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            overflow-x: auto;
         }
 
         .btn-container {
             text-align: center;
-            margin: 30px 0 50px 0;
+            margin: 35px 0 60px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
         button {
@@ -204,15 +222,24 @@
             background: var(--primary-light);
         }
 
+        button.reset-btn {
+            background: #64748b;
+        }
+
+        button.reset-btn:hover {
+            background: #475569;
+        }
+
         #score-banner {
             display: none;
-            background: var(--primary);
+            background: #0f172a;
             color: white;
-            padding: 20px;
+            padding: 22px;
             border-radius: 10px;
             text-align: center;
             margin-bottom: 25px;
             font-size: 1.25rem;
+            border: 2px solid #3b82f6;
         }
     </style>
 </head>
@@ -221,93 +248,292 @@
 <div class="container">
     <header>
         <h1>Simulasi Latihan UTS - Mata Kuliah Big Data</h1>
-        <p>Materi: Konsep Dasar 5V, Ekosistem Hadoop, Data Acquisition (Kafka, Flume, Sqoop), Storage (HBase & Hive), dan MongoDB</p>
+        <p>Politeknik Caltex Riau | 20 Soal Objektif & 5 Soal Esai (Tabel & Gambar Skema/Shape)</p>
     </header>
 
     <div id="score-banner"></div>
 
     <form id="quiz-form">
-        <div class="section-title">Bagian I: Soal Objektif (Pilihan Ganda)</div>
+        <div class="section-title">Bagian I: Soal Objektif (20 Pilihan Ganda)</div>
 
         <!-- Soal 1 -->
-        <div class="question-card" id="card-q1">
-            <div class="question-text">1. Sebuah perusahaan ritel menggunakan model Machine Learning untuk menganalisis data histori transaksi dan memprediksi produk apa yang kemungkinan besar akan dibeli pelanggan bulan depan, sekaligus memberikan saran otomatis mengenai jumlah stok yang harus dipesan. Kombinasi tipe analitik apa yang diterapkan perusahaan tersebut?</div>
+        <div class="question-card">
+            <span class="topic-badge">Konsep Dasar Big Data</span>
+            <div class="question-text">1. Dalam karakteristik 5V Big Data, dua dimensi yang dikategorikan sebagai "Quality Property" (menentukan keandalan dan manfaat bisnis dari data) adalah...</div>
             <div class="options">
-                <label><input type="radio" name="q1" value="A"> A. Descriptive & Diagnostic Analytics</label>
-                <label><input type="radio" name="q1" value="B"> B. Diagnostic & Predictive Analytics</label>
-                <label><input type="radio" name="q1" value="C"> C. Predictive & Prescriptive Analytics</label>
-                <label><input type="radio" name="q1" value="D"> D. Descriptive & Prescriptive Analytics</label>
+                <label><input type="radio" name="q1" value="A"> A. Volume dan Velocity</label>
+                <label><input type="radio" name="q1" value="B"> B. Variety dan Volume</label>
+                <label><input type="radio" name="q1" value="C"> C. Veracity dan Value</label>
+                <label><input type="radio" name="q1" value="D"> D. Velocity dan Veracity</label>
             </div>
             <div class="feedback" id="fb-q1"></div>
         </div>
 
         <!-- Soal 2 -->
-        <div class="question-card" id="card-q2">
-            <div class="question-text">2. Pada arsitektur Hadoop 2.0, terjadi pemisahan fungsi dari komponen MapReduce yang ada pada Hadoop 1.0. Komponen baru yang secara spesifik bertugas mengelola manajemen sumber daya (cluster resource management) dan penjadwalan (scheduling) adalah...</div>
+        <div class="question-card">
+            <span class="topic-badge">Konsep Dasar Big Data</span>
+            <div class="question-text">2. Sebuah perusahaan manufaktur menganalisis data sensor mesin yang sempat rusak bulan lalu untuk mencari tahu akar penyebab kegagalan komponen tersebut. Tipe analitik apa yang sedang dilakukan?</div>
             <div class="options">
-                <label><input type="radio" name="q2" value="A"> A. HDFS</label>
-                <label><input type="radio" name="q2" value="B"> B. YARN</label>
-                <label><input type="radio" name="q2" value="C"> C. ZooKeeper</label>
-                <label><input type="radio" name="q2" value="D"> D. Hadoop Common</label>
+                <label><input type="radio" name="q2" value="A"> A. Descriptive Analytics</label>
+                <label><input type="radio" name="q2" value="B"> B. Diagnostic Analytics</label>
+                <label><input type="radio" name="q2" value="C"> C. Predictive Analytics</label>
+                <label><input type="radio" name="q2" value="D"> D. Prescriptive Analytics</label>
             </div>
             <div class="feedback" id="fb-q2"></div>
         </div>
 
         <!-- Soal 3 -->
-        <div class="question-card" id="card-q3">
-            <div class="question-text">3. Sebuah sistem e-commerce perlu memindahkan data transaksi pelanggan yang tersimpan rapi di database relasional (MySQL) ke dalam HDFS secara paralel untuk keperluan analisis batch, sekaligus menangkap log aktivitas klik pengguna (clickstream) dari web server secara streaming ke HDFS. Kombinasi tools yang paling tepat digunakan secara berurutan adalah...</div>
+        <div class="question-card">
+            <span class="topic-badge">Konsep Dasar Big Data</span>
+            <div class="question-text">3. Tahapan pertama dalam alur Big Data Pipeline yang bertugas mengumpulkan serta menyerap data dari berbagai sumber (sensor IoT, database relasional, API) baik secara batch maupun real-time disebut...</div>
             <div class="options">
-                <label><input type="radio" name="q3" value="A"> A. Apache Kafka dan Apache Sqoop</label>
-                <label><input type="radio" name="q3" value="B"> B. Apache Flume dan Apache Kafka</label>
-                <label><input type="radio" name="q3" value="C"> C. Apache Sqoop dan Apache Flume</label>
-                <label><input type="radio" name="q3" value="D"> D. Apache Hive dan Apache HBase</label>
+                <label><input type="radio" name="q3" value="A"> A. Data Storage</label>
+                <label><input type="radio" name="q3" value="B"> B. Data Visualization</label>
+                <label><input type="radio" name="q3" value="C"> C. Data Ingestion</label>
+                <label><input type="radio" name="q3" value="D"> D. Data Processing</label>
             </div>
             <div class="feedback" id="fb-q3"></div>
         </div>
 
         <!-- Soal 4 -->
-        <div class="question-card" id="card-q4">
-            <div class="question-text">4. Manakah pernyataan yang KURANG TEPAT mengenai perbedaan antara Apache HBase dan Apache Hive?</div>
+        <div class="question-card">
+            <span class="topic-badge">Konsep Dasar Big Data</span>
+            <div class="question-text">4. Perbedaan mendasar terkait penerapan skema pada Data Warehouse dibandingkan dengan Data Lake adalah...</div>
             <div class="options">
-                <label><input type="radio" name="q4" value="A"> A. HBase cocok untuk akses baca/tulis real-time dengan latensi rendah, sedangkan Hive dioptimalkan untuk pemrosesan batch berskala Petabyte.</label>
-                <label><input type="radio" name="q4" value="B"> B. HBase adalah database NoSQL berbasis kolom (column-oriented), sedangkan Hive adalah data warehouse tool dengan antarmuka mirip SQL (HiveQL).</label>
-                <label><input type="radio" name="q4" value="C"> C. Keduanya menyimpan data secara terdistribusi di atas HDFS dan menggunakan ZooKeeper untuk manajemen metadata tabel.</label>
-                <label><input type="radio" name="q4" value="D"> D. Pada HBase, pembaruan data (update) akan menciptakan versi baru berdasarkan timestamp, sedangkan Hive menjalankan kueri yang diterjemahkan menjadi job MapReduce, Tez, atau Spark.</label>
+                <label><input type="radio" name="q4" value="A"> A. Data Warehouse menggunakan Schema-on-Read, sedangkan Data Lake menggunakan Schema-on-Write</label>
+                <label><input type="radio" name="q4" value="B"> B. Data Warehouse menggunakan Schema-on-Write, sedangkan Data Lake menggunakan Schema-on-Read</label>
+                <label><input type="radio" name="q4" value="C"> C. Keduanya wajib mendefinisikan skema relasional secara kaku sebelum data disimpan</label>
+                <label><input type="radio" name="q4" value="D"> D. Data Warehouse hanya menyimpan data mentah (raw), sedangkan Data Lake menyimpan data terkurasi</label>
             </div>
             <div class="feedback" id="fb-q4"></div>
         </div>
 
         <!-- Soal 5 -->
-        <div class="question-card" id="card-q5">
-            <div class="question-text">5. Perhatikan potongan kueri MongoDB berikut:
-<pre>db.products.find(
-  { category: "electronics", stock: { $lte: 10 } },
-  { _id: 0, name: 1, stock: 1 }
-).sort({ stock: 1 }).limit(5)</pre>
-            Apa hasil yang dikembalikan oleh kueri tersebut?</div>
+        <div class="question-card">
+            <span class="topic-badge">Ekosistem Hadoop</span>
+            <div class="question-text">5. Bagaimana cara kerja HDFS (Hadoop Distributed File System) dalam mengatasi keterbatasan penyimpanan tunggal (single central storage) dan risiko kegagalan perangkat keras?</div>
             <div class="options">
-                <label><input type="radio" name="q5" value="A"> A. Menampilkan semua field dari 5 produk elektronik dengan stok di bawah 10, diurutkan dari stok terbanyak.</label>
-                <label><input type="radio" name="q5" value="B"> B. Menampilkan hanya field name dan stock dari maksimal 5 produk elektronik dengan stok kurang dari atau sama dengan 10, diurutkan dari stok paling sedikit.</label>
-                <label><input type="radio" name="q5" value="C"> C. Menghapus field _id secara permanen dari 5 dokumen produk elektronik yang stoknya kurang dari 10.</label>
-                <label><input type="radio" name="q5" value="D"> D. Menampilkan 5 produk elektronik pertama tanpa mengurutkannya, dengan menyembunyikan field name dan stock.</label>
+                <label><input type="radio" name="q5" value="A"> A. Mengompresi seluruh file menjadi satu blok tunggal di NameNode</label>
+                <label><input type="radio" name="q5" value="B"> B. Memecah file menjadi potongan-potongan (chunk/block) yang didistribusikan ke berbagai node beserta duplikasinya (replikasi)</label>
+                <label><input type="radio" name="q5" value="C"> C. Menghapus data lama secara otomatis setiap kali ada data baru masuk</label>
+                <label><input type="radio" name="q5" value="D"> D. Menyimpan seluruh data hanya di memori RAM menggunakan Apache Spark</label>
             </div>
             <div class="feedback" id="fb-q5"></div>
         </div>
 
-        <div class="section-title">Bagian II: Soal Esai (Tabel & Gambar Arsitektur/Shape)</div>
+        <!-- Soal 6 -->
+        <div class="question-card">
+            <span class="topic-badge">Ekosistem Hadoop</span>
+            <div class="question-text">6. Pada arsitektur Hadoop 2.0, komponen inti yang bertugas mengelola manajemen sumber daya klaster (cluster resource management) dan penjadwalan (scheduling) adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A. HDFS</label>
+                <label><input type="radio" name="q6" value="B"> B. MapReduce</label>
+                <label><input type="radio" name="q6" value="C"> C. YARN</label>
+                <label><input type="radio" name="q6" value="D"> D. Apache Pig</label>
+            </div>
+            <div class="feedback" id="fb-q6"></div>
+        </div>
+
+        <!-- Soal 7 -->
+        <div class="question-card">
+            <span class="topic-badge">Ekosistem Hadoop</span>
+            <div class="question-text">7. Dalam layanan Cloud Computing untuk infrastruktur Big Data, apabila vendor mengelola mulai dari jaringan, storage, server, virtualisasi, runtime, hingga aplikasi, maka layanan tersebut termasuk kategori...</div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A. IaaS (Infrastructure as a Service)</label>
+                <label><input type="radio" name="q7" value="B"> B. PaaS (Platform as a Service)</label>
+                <label><input type="radio" name="q7" value="C"> C. SaaS (Software as a Service)</label>
+                <label><input type="radio" name="q7" value="D"> D. On-Premise Infrastructure</label>
+            </div>
+            <div class="feedback" id="fb-q7"></div>
+        </div>
+
+        <!-- Soal 8 -->
+        <div class="question-card">
+            <span class="topic-badge">Data Acquisition (Kafka)</span>
+            <div class="question-text">8. Pada mekanisme Publish-Subscribe di Apache Kafka, komponen yang bertindak sebagai server pengelola topik serta menangani persistensi, partisi, dan replikasi pesan disebut...</div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A. Producer</label>
+                <label><input type="radio" name="q8" value="B"> B. Consumer</label>
+                <label><input type="radio" name="q8" value="C"> C. Broker</label>
+                <label><input type="radio" name="q8" value="D"> D. Offset</label>
+            </div>
+            <div class="feedback" id="fb-q8"></div>
+        </div>
+
+        <!-- Soal 9 -->
+        <div class="question-card">
+            <span class="topic-badge">Data Acquisition (Kafka)</span>
+            <div class="question-text">9. Setiap pesan yang masuk ke dalam partisi topik pada Apache Kafka diberikan ID urutan unik yang digunakan oleh Consumer untuk melacak pesan mana saja yang sudah dibaca. ID urutan tersebut dinamakan...</div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> A. Partition Key</label>
+                <label><input type="radio" name="q9" value="B"> B. Offset</label>
+                <label><input type="radio" name="q9" value="C"> C. Ephemeral Node</label>
+                <label><input type="radio" name="q9" value="D"> D. RowKey</label>
+            </div>
+            <div class="feedback" id="fb-q9"></div>
+        </div>
+
+        <!-- Soal 10 -->
+        <div class="question-card">
+            <span class="topic-badge">Data Acquisition (Flume)</span>
+            <div class="question-text">10. Urutan aliran data (Event) yang benar di dalam satu buah Flume Agent dari awal masuk hingga keluar menuju penyimpanan adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> A. Channel &rarr; Source &rarr; Sink</label>
+                <label><input type="radio" name="q10" value="B"> B. Sink &rarr; Channel &rarr; Source</label>
+                <label><input type="radio" name="q10" value="C"> C. Source &rarr; Sink &rarr; Channel</label>
+                <label><input type="radio" name="q10" value="D"> D. Source &rarr; Channel &rarr; Sink</label>
+            </div>
+            <div class="feedback" id="fb-q10"></div>
+        </div>
+
+        <!-- Soal 11 -->
+        <div class="question-card">
+            <span class="topic-badge">Data Acquisition (Flume)</span>
+            <div class="question-text">11. Pada Apache Flume, komponen yang berfungsi memodifikasi, menyaring (misalnya dengan Regex), atau menambahkan header seperti timestamp/UUID pada Event saat mengalir dari Source menuju Channel adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A"> A. Flume Interceptors</label>
+                <label><input type="radio" name="q11" value="B"> B. Failover Sink Processor</label>
+                <label><input type="radio" name="q11" value="C"> C. Multiplexing Channel Selector</label>
+                <label><input type="radio" name="q11" value="D"> D. Spooling Directory</label>
+            </div>
+            <div class="feedback" id="fb-q11"></div>
+        </div>
+
+        <!-- Soal 12 -->
+        <div class="question-card">
+            <span class="topic-badge">Data Acquisition (Sqoop)</span>
+            <div class="question-text">12. Sebuah perusahaan ingin memindahkan seluruh tabel data transaksi dari database MySQL (RDBMS) ke dalam HDFS secara paralel menggunakan tugas Map. Tool ekosistem Hadoop yang paling tepat untuk tugas ini adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A"> A. Apache Flume</label>
+                <label><input type="radio" name="q12" value="B"> B. Apache Sqoop</label>
+                <label><input type="radio" name="q12" value="C"> C. Apache Kafka</label>
+                <label><input type="radio" name="q12" value="D"> D. Apache ZooKeeper</label>
+            </div>
+            <div class="feedback" id="fb-q12"></div>
+        </div>
+
+        <!-- Soal 13 -->
+        <div class="question-card">
+            <span class="topic-badge">Big Data Storage (HBase)</span>
+            <div class="question-text">13. Saat Client melakukan operasi tulis (Put) pertama kali pada Apache HBase, data akan ditulis terlebih dahulu ke dalam file log untuk pemulihan (recovery) jika terjadi kegagalan, sebelum disalin ke cache memori. Komponen log dan cache memori tersebut secara berurutan adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A"> A. HFile dan Metastore</label>
+                <label><input type="radio" name="q13" value="B"> B. WAL (Write Ahead Log) dan MemStore</label>
+                <label><input type="radio" name="q13" value="C"> C. MemStore dan HFile</label>
+                <label><input type="radio" name="q13" value="D"> D. HMaster dan ZooKeeper</label>
+            </div>
+            <div class="feedback" id="fb-q13"></div>
+        </div>
+
+        <!-- Soal 14 -->
+        <div class="question-card">
+            <span class="topic-badge">Big Data Storage (HBase)</span>
+            <div class="question-text">14. Dalam arsitektur Apache HBase, tabel katalog khusus yang menyimpan informasi lokasi seluruh Region Server dan memetakan Row Key ke Region tertentu adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A"> A. META Table (.META)</label>
+                <label><input type="radio" name="q14" value="B"> B. Hive Metastore</label>
+                <label><input type="radio" name="q14" value="C"> C. StoreFile</label>
+                <label><input type="radio" name="q14" value="D"> D. Column Family</label>
+            </div>
+            <div class="feedback" id="fb-q14"></div>
+        </div>
+
+        <!-- Soal 15 -->
+        <div class="question-card">
+            <span class="topic-badge">Big Data Storage (Hive)</span>
+            <div class="question-text">15. Di mana Apache Hive menyimpan metadata sistem katalognya (seperti struktur tabel, nama kolom, dan partisi), dan di mana lokasi default penyimpanan data aktual tabel Hive di HDFS?</div>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A"> A. Metadata di ZooKeeper; Data di /var/log/hive</label>
+                <label><input type="radio" name="q15" value="B"> B. Metadata di Metastore (RDBMS seperti MySQL/Derby); Data di /user/hive/warehouse</label>
+                <label><input type="radio" name="q15" value="C"> C. Metadata di HFile; Data di MemStore</label>
+                <label><input type="radio" name="q15" value="D"> D. Metadata di NameNode; Data di lokal disk Client</label>
+            </div>
+            <div class="feedback" id="fb-q15"></div>
+        </div>
+
+        <!-- Soal 16 -->
+        <div class="question-card">
+            <span class="topic-badge">MongoDB Dasar</span>
+            <div class="question-text">16. Pada MongoDB, field wajib yang bertindak sebagai Primary Key di setiap dokumen adalah <code>_id</code>. Jika tidak diisi secara manual, MongoDB otomatis membuatkan nilai bertipe <code>ObjectId</code> berukuran 12 byte yang terdiri dari struktur...</div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A"> A. 6-byte Timestamp, 4-byte Random Value, 2-byte Counter</label>
+                <label><input type="radio" name="q16" value="B"> B. 4-byte Timestamp, 5-byte Random Value, 3-byte Incrementing Counter</label>
+                <label><input type="radio" name="q16" value="C"> C. 4-byte IP Address, 4-byte Timestamp, 4-byte Random Value</label>
+                <label><input type="radio" name="q16" value="D"> D. 8-byte Timestamp dan 4-byte Auto-Increment Integer</label>
+            </div>
+            <div class="feedback" id="fb-q16"></div>
+        </div>
+
+        <!-- Soal 17 -->
+        <div class="question-card">
+            <span class="topic-badge">MongoDB Dasar</span>
+            <div class="question-text">17. Strategi pemodelan data di MongoDB yang menyimpan sub-dokumen di dalam dokumen induk (denormalized) sangat direkomendasikan ketika...</div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A"> A. Antar dokumen dapat berdiri sendiri dan tidak saling bergantung</label>
+                <label><input type="radio" name="q17" value="B"> B. Sub-dokumen jarang diakses bersamaan dengan dokumen induknya</label>
+                <label><input type="radio" name="q17" value="C"> C. Data memiliki ketergantungan erat dan sub-dokumen selalu dibutuhkan saat mengambil dokumen induk</label>
+                <label><input type="radio" name="q17" value="D"> D. Ukuran total satu dokumen melebihi batas maksimal 16 MB</label>
+            </div>
+            <div class="feedback" id="fb-q17"></div>
+        </div>
+
+        <!-- Soal 18 -->
+        <div class="question-card">
+            <span class="topic-badge">MongoDB Dasar</span>
+            <div class="question-text">18. Perhatikan kueri MongoDB berikut:
+<pre>db.orders.find(
+  { status: "paid", total: { $gte: 500000 } },
+  { _id: 0, customer: 1, total: 1 }
+).sort({ total: -1 }).limit(3)</pre>
+            Apa output yang dihasilkan oleh kueri tersebut?</div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A"> A. Menampilkan field customer dan total dari 3 transaksi berstatus "paid" dengan total &ge; 500.000, diurutkan dari total terbesar</label>
+                <label><input type="radio" name="q18" value="B"> B. Menampilkan semua field dari 3 transaksi dengan total di bawah 500.000, diurutkan dari terkecil</label>
+                <label><input type="radio" name="q18" value="C"> C. Menghapus 3 dokumen transaksi yang memiliki total lebih dari 500.000</label>
+                <label><input type="radio" name="q18" value="D"> D. Menyembunyikan field customer dan total dari seluruh transaksi berstatus "paid"</label>
+            </div>
+            <div class="feedback" id="fb-q18"></div>
+        </div>
+
+        <!-- Soal 19 -->
+        <div class="question-card">
+            <span class="topic-badge">MongoDB Dasar</span>
+            <div class="question-text">19. Dalam operasi update array di MongoDB, operator manakah yang digunakan untuk menambahkan elemen baru ke dalam array HANYA JIKA elemen tersebut belum ada di dalam array (mencegah duplikasi)?</div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A"> A. <code>$push</code></label>
+                <label><input type="radio" name="q19" value="B"> B. <code>$addToSet</code></label>
+                <label><input type="radio" name="q19" value="C"> C. <code>$pop</code></label>
+                <label><input type="radio" name="q19" value="D"> D. <code>$pull</code></label>
+            </div>
+            <div class="feedback" id="fb-q19"></div>
+        </div>
+
+        <!-- Soal 20 -->
+        <div class="question-card">
+            <span class="topic-badge">MongoDB Dasar</span>
+            <div class="question-text">20. Jenis index di MongoDB yang berfungsi menghapus dokumen secara otomatis setelah melewati batas waktu tertentu (berdasarkan field bertipe Date) dan diperiksa oleh background process setiap 60 detik adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A"> A. Wildcard Index</label>
+                <label><input type="radio" name="q20" value="B"> B. Compound Index</label>
+                <label><input type="radio" name="q20" value="C"> C. TTL (Time To Live) Index</label>
+                <label><input type="radio" name="q20" value="D"> D. Unique Index</label>
+            </div>
+            <div class="feedback" id="fb-q20"></div>
+        </div>
+
+        <div class="section-title">Bagian II: Soal Esai (5 Soal Tabel & Gambar Skema/Shape)</div>
 
         <!-- Esai 1 -->
         <div class="question-card">
-            <div class="question-text">1. Buatlah tabel perbandingan yang membedakan antara Data Warehouse dan Data Lake (serta konsep RDBMS vs Document DB/MongoDB) minimal berdasarkan 5 aspek: Tipe data yang didukung, Penerapan skema, Struktur penyimpanan, Penanganan relasi/kualitas data, dan Pengguna/Contoh teknologinya.</div>
-            <textarea placeholder="Tuliskan poin-poin jawaban atau rancangan tabelmu di sini untuk latihan sebelum melihat kunci jawaban..."></textarea>
-            
+            <span class="topic-badge">Esai 1 - Tabel Perbandingan</span>
+            <div class="question-text">1. Buatlah tabel perbandingan yang membedakan antara Data Warehouse dan Data Lake berdasarkan minimal 5 aspek (Tipe Data, Penerapan Skema, Kualitas Data, Biaya Penyimpanan, dan Pengguna Utama).</div>
+            <textarea placeholder="Tuliskan rancangan jawaban tabelmu di sini sebelum melihat kunci jawaban..."></textarea>
             <div class="essay-answer" id="ans-e1">
-                <h4>Kunci Jawaban Referensi (Berdasarkan Materi Kuliah):</h4>
-                <p><strong>A. Perbandingan Data Warehouse vs Data Lake:</strong></p>
+                <h4>Kunci Jawaban Referensi (Materi Konsep Dasar Big Data):</h4>
                 <table>
                     <thead>
                         <tr>
-                            <th>Aspek / Karakteristik</th>
+                            <th>Karakteristik / Aspek</th>
                             <th>Data Warehouse</th>
                             <th>Data Lake</th>
                         </tr>
@@ -329,9 +555,9 @@
                             <td>Data mentah (<em>raw</em>), bervariasi, belum dibersihkan secara masif</td>
                         </tr>
                         <tr>
-                            <td><strong>Biaya Penyimpanan</strong></td>
+                            <td><strong>Biaya</strong></td>
                             <td>Relatif tinggi karena penyimpanan lokal teroptimasi</td>
-                            <td>Sangat <em>cost-effective</em>, berbasis <em>cloud storage</em> (misal AWS S3) atau HDFS</td>
+                            <td>Sangat <em>cost-effective</em>, berbasis <em>cloud storage</em> (misal AWS S3)</td>
                         </tr>
                         <tr>
                             <td><strong>Pengguna Utama</strong></td>
@@ -340,97 +566,139 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
 
-                <p style="margin-top: 15px;"><strong>B. Perbandingan Istilah Relational DB (RDBMS) vs Document DB (MongoDB):</strong></p>
+        <!-- Esai 2 -->
+        <div class="question-card">
+            <span class="topic-badge">Esai 2 - Tabel Perbandingan</span>
+            <div class="question-text">2. Buatlah tabel perbandingan yang membedakan antara Relational Database (RDBMS) dan Document Database (MongoDB) serta Apache HBase berdasarkan struktur penyimpanan, skema, penanganan relasi, dan mekanisme update data.</div>
+            <textarea placeholder="Tuliskan rancangan tabel perbandingan RDBMS vs MongoDB/HBase di sini..."></textarea>
+            <div class="essay-answer" id="ans-e2">
+                <h4>Kunci Jawaban Referensi (Materi MongoDB & HBase):</h4>
                 <table>
                     <thead>
                         <tr>
                             <th>Aspek</th>
                             <th>Relational DB (RDBMS)</th>
                             <th>Document DB (MongoDB)</th>
+                            <th>Column-Based (Apache HBase)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Wadah Utama</strong></td>
-                            <td>Database &rarr; Table</td>
-                            <td>Database &rarr; Collection</td>
+                            <td><strong>Struktur Wadah</strong></td>
+                            <td>Database &rarr; Table &rarr; Row & Column</td>
+                            <td>Database &rarr; Collection &rarr; Document (JSON/BSON) & Field</td>
+                            <td>Table &rarr; Row Key &rarr; Column Family &rarr; Column Qualifier & Cell</td>
                         </tr>
                         <tr>
-                            <td><strong>Unit Data</strong></td>
-                            <td>Row / Record & Column</td>
-                            <td>Document (JSON/BSON) & Field</td>
+                            <td><strong>Skema Data</strong></td>
+                            <td>Skema kaku (<em>Fixed Schema</em>), wajib normalisasi</td>
+                            <td><em>Flexible Schema</em> (bisa divalidasi dengan <code>$jsonSchema</code>)</td>
+                            <td>Tanpa skema kaku, hanya mendefinisikan <em>Column Families</em></td>
                         </tr>
                         <tr>
-                            <td><strong>Relasi Data</strong></td>
-                            <td>Join Table (Normalisasi kaku)</td>
-                            <td>Embedded Sub-document / Reference</td>
+                            <td><strong>Penanganan Relasi</strong></td>
+                            <td>Menggunakan <em>Join Table</em> & <em>Foreign Key</em></td>
+                            <td><em>Embedded Sub-document</em> atau <em>Reference</em></td>
+                            <td>Denormalisasi (Wide Table), tanpa operasi Join bawaan</td>
                         </tr>
                         <tr>
-                            <td><strong>Bahasa Manipulasi</strong></td>
-                            <td>SQL</td>
-                            <td>JavaScript</td>
+                            <td><strong>Mekanisme Update</strong></td>
+                            <td>Menimpa (<em>replace</em>) nilai record lama</td>
+                            <td>Mutasi sebagian field (<code>$set</code>, <code>$inc</code>) atau <code>replaceOne()</code></td>
+                            <td>Membuat versi data baru berdasarkan <em>timestamp</em> (data lama tidak langsung hilang)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Esai 2 -->
+        <!-- Esai 3 -->
         <div class="question-card">
-            <div class="question-text">2. Gambarkan diagram blok (shape) beserta arah panah aliran data dan jelaskan fungsi masing-masing komponen untuk: (A) Arsitektur Apache Flume Agent & Consolidation, dan (B) Mekanisme Operasi Tulis pada Apache HBase.</div>
-            <textarea placeholder="Gambarkan alur komponen menggunakan teks/panah dan tuliskan penjelasan masing-masing komponen di sini..."></textarea>
-
-            <div class="essay-answer" id="ans-e2">
-                <h4>Kunci Jawaban Referensi (Berdasarkan Materi Kuliah):</h4>
-                
-                <p><strong>A. Arsitektur Apache Flume (Single Agent & Consolidation):</strong></p>
-                <div class="diagram-box">[Web Server / Sumber Data] 
-       │ (Event)
-       ▼
-┌─────────────────────────────────────────────────────────┐
-│ FLUME AGENT                                             │
-│  ┌──────────┐       ┌───────────┐       ┌────────────┐  │
-│  │  Source  │ ────► │  Channel  │ ────► │    Sink    │  │
-│  └──────────┘       └───────────┘       └────────────┘  │
-└─────────────────────────────────────────────────────────┘
-                                                 │
-                                                 ▼
-                                         [HDFS / Storage]
-
-*Pola Consolidation (Multi-Agent):
-[Agent 1 (Avro Sink)] ──┐
-[Agent 2 (Avro Sink)] ──┼──► [Agent 4: Avro Source -> Channel -> Avro Sink] ──► [HDFS]
-[Agent 3 (Avro Sink)] ──┘</div>
+            <span class="topic-badge">Esai 3 - Gambar Diagram Alur (Shape)</span>
+            <div class="question-text">3. Gambarkan diagram alur Big Data Pipeline (4 tahapan utama) beserta bentuk bangun (shape) dan arah panahnya, lalu jelaskan proses yang terjadi pada setiap tahapan!</div>
+            <textarea placeholder="Gambarkan 4 tahapan Big Data Pipeline beserta penjelasannya di sini..."></textarea>
+            <div class="essay-answer" id="ans-e3">
+                <h4>Kunci Jawaban Referensi (Materi Konsep Dasar Big Data):</h4>
+                <div class="diagram-box">[ Sumber Data ] 
+(IoT, DB, API)
+      │
+      ▼
+┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
+│ 1. Data Ingestion │ ──► │  2. Data Storage  │ ──► │ 3. Data Processing│ ──► │4. Data Visualiz.  │
+└───────────────────┘     └───────────────────┘     └───────────────────┘     └───────────────────┘</div>
                 <ul>
-                    <li><strong>Source:</strong> Komponen yang menerima/mengumpulkan data dari sumber eksternal (misal <em>Web Server</em>, <em>Twitter/Syslog/Avro</em>) dalam bentuk <em>Event</em>.</li>
-                    <li><strong>Channel:</strong> Penampung/antrean sementara (<em>buffer</em> seperti Memory/File Channel) yang menerima <em>event</em> dari <em>Source</em> sebelum diambil oleh <em>Sink</em>.</li>
-                    <li><strong>Sink:</strong> Komponen yang mengambil <em>event</em> dari <em>Channel</em> dan meneruskannya ke penyimpanan tujuan (seperti <em>HDFS</em>) atau ke <em>Agent</em> berikutnya.</li>
-                    <li><strong>Agent:</strong> Satu kesatuan proses JVM yang membungkus komponen <em>Source, Channel,</em> dan <em>Sink</em>.</li>
+                    <li><strong>1. Data Ingestion:</strong> Proses pengumpulan dan penyerapan data mentah dari berbagai sumber (database relasional, sensor IoT, API, log server) baik secara <em>batch</em> maupun <em>real-time</em>.</li>
+                    <li><strong>2. Data Storage:</strong> Penyimpanan data ke dalam wadah yang sesuai dengan karakteristiknya (<em>Data Lake / HDFS</em> untuk data tidak terstruktur/mentah, dan <em>Data Warehouse</em> untuk data terstruktur yang terkurasi).</li>
+                    <li><strong>3. Data Processing:</strong> Proses transformasi, pembersihan (<em>cleansing</em>), integrasi, dan komputasi data skala besar menggunakan ekosistem terdistribusi (seperti MapReduce atau Apache Spark).</li>
+                    <li><strong>4. Data Visualization:</strong> Penyajian hasil analisis data ke dalam bentuk <em>dashboard</em> interaktif, grafik, dan laporan dinamis agar mudah dipahami untuk pengambilan keputusan bisnis.</li>
                 </ul>
+            </div>
+        </div>
 
-                <p style="margin-top: 15px;"><strong>B. Mekanisme Operasi Tulis (Write) pada Apache HBase:</strong></p>
-                <div class="diagram-box">[Client] ──(1. Put Request)──► [Region Server]
-                                   │
-             ┌─────────────────────┴─────────────────────┐
-             ▼                                           ▼
-  (1) Tulis ke WAL (Write Ahead Log)          (2) Salin ke MemStore (Memory Cache)
-      (Untuk recovery jika gagal)                        │
-                                                         ├──► (3) Kirim ACK ke Client
-                                                         ▼
-                                              (4) Jika penuh (Threshold), 
-                                                  flush ke [HFile] di [HDFS DataNode]</div>
+        <!-- Esai 4 -->
+        <div class="question-card">
+            <span class="topic-badge">Esai 4 - Gambar Arsitektur (Shape)</span>
+            <div class="question-text">4. Gambarkan arsitektur Apache Flume (baik Single Agent maupun pola Multi-Agent Consolidation) lengkap dengan komponen di dalamnya, serta jelaskan perbedaan fungsi antara Apache Kafka, Apache Flume, dan Apache Sqoop!</div>
+            <textarea placeholder="Gambarkan skema Flume Agent dan tulis perbandingan Kafka, Flume, serta Sqoop di sini..."></textarea>
+            <div class="essay-answer" id="ans-e4">
+                <h4>Kunci Jawaban Referensi (Materi Data Acquisition):</h4>
+                <div class="diagram-box">[Web Server] ──(Event)──► ┌──────────────────────────────────────────┐
+                          │ FLUME AGENT                              │
+                          │  [Source] ──► [Channel] ──► [Sink]       │ ──► [HDFS / Storage]
+                          └──────────────────────────────────────────┘
+
+*Arsitektur Consolidation (Multi-Agent):
+[Agent 1: Avro Sink] ──┐
+[Agent 2: Avro Sink] ──┼──► [Agent 4: Avro Source -> Channel -> Avro Sink] ──► [HDFS]
+[Agent 3: Avro Sink] ──┘</div>
                 <ul>
-                    <li><strong>ZooKeeper & .META Table:</strong> Saat pertama kali akses, <em>Client</em> menghubungi <em>ZooKeeper</em> untuk mengetahui lokasi <em>Region Server</em> yang menyimpan tabel katalog <code>.META</code> guna menemukan <em>Region</em> target.</li>
-                    <li><strong>WAL (Write Ahead Log / HLog):</strong> File log di HDFS tempat data baru pertama kali ditulis untuk menjamin pemulihan data (<em>recovery</em>) apabila <em>Region Server</em> mengalami kegagalan/mati mendadak.</li>
-                    <li><strong>MemStore:</strong> <em>Write cache</em> di memori (terdapat satu <em>MemStore</em> per <em>Column Family</em> dalam satu <em>Region</em>). Setelah data masuk ke sini, <em>Client</em> menerima konfirmasi berhasil (ACK).</li>
-                    <li><strong>HFile:</strong> Ketika kapasitas <em>MemStore</em> mencapai batas (<em>threshold</em>), data akan di-<em>flush</em> (disimpan permanen) ke disk HDFS dalam format <em>HFile</em> yang terurut berdasarkan <em>KeyValue</em>.</li>
+                    <li><strong>Komponen Flume Agent:</strong> <em>Source</em> (menerima event dari sumber eksternal), <em>Channel</em> (penampung antrean sementara seperti Memory/File Channel), dan <em>Sink</em> (meneruskan event dari Channel ke HDFS atau Agent lain).</li>
+                    <li><strong>Perbedaan Kafka vs Flume vs Sqoop:</strong>
+                        <ul>
+                            <li><strong>Apache Kafka:</strong> Platform <em>distributed streaming</em> berbasis mekanisme <em>Publish-Subscribe</em> (menggunakan Producer, Broker, Topic, Partition, dan Consumer dengan sistem tarik/<em>pull</em>) yang cocok untuk pemrosesan aliran data real-time berkecepatan tinggi.</li>
+                            <li><strong>Apache Flume:</strong> Dirancang khusus untuk mengumpulkan, menggabungkan, dan memindahkan data <em>log</em> atau <em>streaming</em> (seperti log web server atau media sosial) secara langsung ke penyimpanan terpusat seperti HDFS atau HBase.</li>
+                            <li><strong>Apache Sqoop:</strong> Berfokus pada transfer data massal (<em>bulk import/export</em>) dua arah antara database relasional (RDBMS seperti MySQL/Oracle) dengan ekosistem Hadoop (HDFS, Hive, HBase) menggunakan tugas Map paralel dan driver JDBC.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Esai 5 -->
+        <div class="question-card">
+            <span class="topic-badge">Esai 5 - Gambar Arsitektur & Alur (Shape)</span>
+            <div class="question-text">5. Gambarkan skema mekanisme operasi tulis (Write) pada Apache HBase mulai dari Client mengirimkan perintah Put hingga data tersimpan permanen di HDFS, dan jelaskan peran ZooKeeper, WAL, MemStore, serta HFile!</div>
+            <textarea placeholder="Gambarkan diagram alur tulis HBase beserta penjelasan komponennya di sini..."></textarea>
+            <div class="essay-answer" id="ans-e5">
+                <h4>Kunci Jawaban Referensi (Materi Big Data Storage - HBase):</h4>
+                <div class="diagram-box">[Client] ──(Cek lokasi .META)──► [ZooKeeper]
+   │
+   └──(1. Put Request)──► [Region Server]
+                                │
+          ┌─────────────────────┴─────────────────────┐
+          ▼                                           ▼
+(1) Tulis ke [WAL / HLog]                  (2) Salin ke [MemStore]
+    (Log pemulihan di HDFS)                    (Write Cache di Memori)
+                                                      │
+                                                      ├──► (3) Kirim ACK ke Client
+                                                      ▼
+                                           (4) Flush saat penuh (Threshold)
+                                               ke [HFile] di [HDFS DataNode]</div>
+                <ul>
+                    <li><strong>ZooKeeper:</strong> Layanan koordinasi terdistribusi yang memantau status hidup server (melalui <em>heartbeat</em> dan <em>ephemeral node</em>), memilih <em>Active HMaster</em>, serta menyimpan lokasi <em>Region Server</em> yang menampung tabel katalog <code>.META</code>.</li>
+                    <li><strong>WAL (Write Ahead Log / HLog):</strong> File log tempat data baru pertama kali dicatat sebelum masuk ke memori. Berfungsi untuk memulihkan data (<em>recovery</em>) apabila <em>Region Server</em> mengalami gangguan sebelum data di memori ditulis ke disk.</li>
+                    <li><strong>MemStore:</strong> <em>Write cache</em> di memori utama (terdapat satu <em>MemStore</em> untuk setiap <em>Column Family</em> dalam satu <em>Region</em>). Segera setelah data masuk ke <em>MemStore</em>, HBase mengirimkan konfirmasi berhasil (ACK) ke <em>Client</em>.</li>
+                    <li><strong>HFile:</strong> File penyimpanan permanen di HDFS DataNode. Ketika ukuran <em>MemStore</em> mencapai batas ambang (<em>threshold</em>), seluruh isinya di-<em>flush</em> ke disk menjadi <em>HFile</em> yang terurut berdasarkan <em>KeyValue</em>.</li>
                 </ul>
             </div>
         </div>
 
         <div class="btn-container">
             <button type="button" onclick="checkQuiz()">Selesai & Lihat Kunci Jawaban</button>
+            <button type="button" class="reset-btn" onclick="resetQuiz()">Reset Kuis</button>
         </div>
     </form>
 </div>
@@ -439,23 +707,83 @@
     const quizData = {
         q1: {
             correct: "C",
-            explanation: "<strong>Predictive Analytics</strong> menjawab 'apa yang akan terjadi' menggunakan Machine Learning untuk meramalkan pembelian masa depan, sedangkan <strong>Prescriptive Analytics</strong> menjawab 'tindakan apa yang harus diambil' dengan memberikan rekomendasi jumlah stok otomatis."
+            explanation: "Dalam klasifikasi 5V Big Data, <strong>Volume, Velocity, dan Variety</strong> adalah <em>Essential Property</em>, sedangkan <strong>Veracity</strong> (keakuratan/validitas) dan <strong>Value</strong> (nilai bisnis) adalah <em>Quality Property</em>."
         },
         q2: {
             correct: "B",
-            explanation: "Pada Hadoop 2.0, <strong>YARN (Yet Another Resource Negotiator)</strong> dipisahkan dari MapReduce untuk menangani <em>cluster resource management</em> dan <em>job scheduling</em>, sementara MapReduce fokus pada pemrosesan data."
+            explanation: "<strong>Diagnostic Analytics</strong> bertujuan menjawab pertanyaan <em>'Why did it happen?'</em> dengan mengevaluasi data historis untuk menemukan pola atau akar penyebab kegagalan."
         },
         q3: {
             correct: "C",
-            explanation: "<strong>Apache Sqoop</strong> dirancang khusus untuk mengimpor/mengekspor data terstruktur antara RDBMS (seperti MySQL) dan HDFS secara paralel. Sedangkan <strong>Apache Flume</strong> dioptimalkan untuk mengumpulkan dan memindahkan data <em>log/clickstream</em> secara <em>streaming</em> ke HDFS."
+            explanation: "<strong>Data Ingestion</strong> adalah tahap awal dalam Big Data Pipeline yang bertugas menyerap dan mengumpulkan data dari berbagai sumber ke dalam sistem penyimpanan."
         },
         q4: {
-            correct: "C",
-            explanation: "Pernyataan C kurang tepat karena <strong>Apache Hive</strong> menyimpan metadata tabelnya (struktur tabel, kolom, partisi) di dalam <strong>Metastore (berbasis RDBMS seperti MySQL atau Derby)</strong>, bukan di ZooKeeper."
+            correct: "B",
+            explanation: "<strong>Data Warehouse</strong> menerapkan <em>Schema-on-Write</em> (struktur tabel harus didefinisikan sebelum data dimuat), sedangkan <strong>Data Lake</strong> menerapkan <em>Schema-on-Read</em> (data mentah disimpan apa adanya dan skema dibentuk saat dibaca)."
         },
         q5: {
             correct: "B",
-            explanation: "Filter <code>{ category: 'electronics', stock: { $lte: 10 } }</code> mencari stok &le; 10. Projection <code>{ _id: 0, name: 1, stock: 1 }</code> menyembunyikan <code>_id</code> dan hanya menampilkan <code>name</code> & <code>stock</code>. Modifier <code>.sort({ stock: 1 })</code> mengurutkan secara <em>ascending</em> (terkecil ke terbesar) dan <code>.limit(5)</code> membatasi maksimal 5 dokumen."
+            explanation: "<strong>HDFS</strong> memecah file berukuran raksasa menjadi potongan-potongan blok (<em>chunk</em>) dan menyebarkannya ke klaster komputer disertai replikasi (duplikat) agar data tetap aman meski ada node yang mati."
+        },
+        q6: {
+            correct: "C",
+            explanation: "Pada Hadoop 2.0, <strong>YARN (Yet Another Resource Negotiator)</strong> hadir untuk memisahkan fungsi <em>cluster resource management</em> dan <em>scheduling</em> dari MapReduce."
+        },
+        q7: {
+            correct: "C",
+            explanation: "Pada model <strong>SaaS (Software as a Service)</strong>, seluruh lapisan infrastruktur mulai dari jaringan, server, storage, runtime, hingga aplikasi dikelola sepenuhnya oleh vendor."
+        },
+        q8: {
+            correct: "C",
+            explanation: "<strong>Broker</strong> di Apache Kafka bertanggung jawab mengelola topik, penyimpanan pesan (persistensi), partisi, serta replikasi antar server dalam klaster."
+        },
+        q9: {
+            correct: "B",
+            explanation: "<strong>Offset</strong> adalah ID urutan numerik pada setiap pesan dalam partisi Kafka yang dipakai Consumer untuk menandai posisi pesan terakhir yang telah diproses."
+        },
+        q10: {
+            correct: "D",
+            explanation: "Di dalam sebuah <em>Flume Agent</em>, data (Event) masuk melalui <strong>Source</strong>, ditampung sementara di <strong>Channel</strong>, lalu dikirimkan ke tujuan akhir oleh <strong>Sink</strong>."
+        },
+        q11: {
+            correct: "A",
+            explanation: "<strong>Flume Interceptors</strong> bekerja di antara <em>Source</em> dan <em>Channel</em> untuk memeriksa, memodifikasi header (seperti Timestamp, Host, UUID), atau menyaring event menggunakan Regex."
+        },
+        q12: {
+            correct: "B",
+            explanation: "<strong>Apache Sqoop</strong> dirancang khusus untuk memindahkan data terstruktur antara RDBMS (via JDBC) dan HDFS/Hive/HBase secara paralel menggunakan Map tasks."
+        },
+        q13: {
+            correct: "B",
+            explanation: "Urutan tulis HBase: Client mengirim <em>Put</em> &rarr; ditulis ke <strong>WAL (Write Ahead Log)</strong> untuk recovery &rarr; disalin ke <strong>MemStore</strong> (write cache di memori) &rarr; kirim ACK ke Client."
+        },
+        q14: {
+            correct: "A",
+            explanation: "<strong>META Table (.META)</strong> adalah tabel katalog khusus HBase yang menyimpan daftar lokasi Region Server untuk setiap rentang Row Key."
+        },
+        q15: {
+            correct: "B",
+            explanation: "Hive menyimpan metadata tabel (kolom, tipe data, partisi) di <strong>Metastore</strong> (menggunakan RDBMS seperti MySQL atau Derby), sedangkan file data tabel disimpan di HDFS pada direktori default <code>/user/hive/warehouse/&lt;table_name&gt;</code>."
+        },
+        q16: {
+            correct: "B",
+            explanation: "Nilai default <code>ObjectId</code> di MongoDB berukuran 12 byte yang terdiri dari <strong>4-byte timestamp</strong>, <strong>5-byte random value</strong>, dan <strong>3-byte incrementing counter</strong>."
+        },
+        q17: {
+            correct: "C",
+            explanation: "Strategi <strong>Embedded (Denormalized)</strong> ideal digunakan ketika sub-dokumen memiliki ketergantungan erat dan selalu diakses bersamaan dengan dokumen induknya."
+        },
+        q18: {
+            correct: "A",
+            explanation: "<code>$gte: 500000</code> memfilter total &ge; 500.000, projection <code>{ _id: 0, customer: 1, total: 1 }</code> hanya menampilkan customer dan total, <code>.sort({ total: -1 })</code> mengurutkan descending (terbesar ke terkecil), dan <code>.limit(3)</code> membatasi 3 hasil."
+        },
+        q19: {
+            correct: "B",
+            explanation: "Operator <code>$addToSet</code> menambahkan nilai ke dalam array hanya jika nilai tersebut belum ada di dalamnya, sehingga mencegah duplikasi elemen."
+        },
+        q20: {
+            correct: "C",
+            explanation: "<strong>TTL (Time To Live) Index</strong> digunakan pada field bertipe <em>Date</em> untuk menghapus dokumen secara otomatis setelah durasi <code>expireAfterSeconds</code> tercapai."
         }
     };
 
@@ -479,16 +807,27 @@
             }
         }
 
-        // Tampilkan skor total
         const banner = document.getElementById("score-banner");
         banner.style.display = "block";
-        banner.innerHTML = `Hasil Evaluasi Soal Objektif: <strong>${score} dari ${total} Benar</strong> (Skor: ${(score / total) * 100}%)<br><span style="font-size: 0.9rem; font-weight: normal;">Silakan gulir ke bawah untuk mencocokkan jawaban esai kamu dengan referensi materi kuliah.</span>`;
+        banner.innerHTML = `Hasil Evaluasi Objektif: <strong>${score} dari ${total} Benar</strong> (Skor: ${Math.round((score / total) * 100)}%)<br><span style="font-size: 0.92rem; font-weight: normal;">Gulir ke bawah untuk mencocokkan tabel dan diagram esai kamu dengan kunci jawaban materi.</span>`;
 
-        // Tampilkan kunci jawaban esai
-        document.getElementById("ans-e1").style.display = "block";
-        document.getElementById("ans-e2").style.display = "block";
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById(`ans-e${i}`).style.display = "block";
+        }
 
-        // Scroll halus ke atas untuk melihat skor
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        document.getElementById("quiz-form").reset();
+        document.getElementById("score-banner").style.display = "none";
+        
+        for (let key in quizData) {
+            document.getElementById(`fb-${key}`).style.display = "none";
+        }
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById(`ans-e${i}`).style.display = "none";
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
