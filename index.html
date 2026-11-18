@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi UTS Big Data - Politeknik Caltex Riau</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --error-bg: #fee2e2;
+            --error-text: #991b1b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.6rem;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            background: #e2e8f0;
+            padding: 10px 18px;
+            border-left: 5px solid var(--primary);
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.15rem;
+            margin: 30px 0 15px 0;
+        }
+
+        .question-card {
+            background: var(--card);
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .options label:hover {
+            background: #f8fafc;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.1);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .feedback.correct {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid #86efac;
+        }
+
+        .feedback.incorrect {
+            background: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid #fca5a5;
+        }
+
+        .essay-answer {
+            display: none;
+            margin-top: 16px;
+            padding: 18px;
+            background: #f8fafc;
+            border: 1px solid #94a3b8;
+            border-left: 5px solid var(--primary-light);
+            border-radius: 8px;
+        }
+
+        .essay-answer h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #94a3b8;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+        }
+
+        .diagram-box {
+            background: #ffffff;
+            border: 2px dashed #64748b;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 30px 0 50px 0;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-light);
+        }
+
+        #score-banner {
+            display: none;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulasi Latihan UTS - Mata Kuliah Big Data</h1>
+        <p>Materi: Konsep Dasar 5V, Ekosistem Hadoop, Data Acquisition (Kafka, Flume, Sqoop), Storage (HBase & Hive), dan MongoDB</p>
+    </header>
+
+    <div id="score-banner"></div>
+
+    <form id="quiz-form">
+        <div class="section-title">Bagian I: Soal Objektif (Pilihan Ganda)</div>
+
+        <!-- Soal 1 -->
+        <div class="question-card" id="card-q1">
+            <div class="question-text">1. Sebuah perusahaan ritel menggunakan model Machine Learning untuk menganalisis data histori transaksi dan memprediksi produk apa yang kemungkinan besar akan dibeli pelanggan bulan depan, sekaligus memberikan saran otomatis mengenai jumlah stok yang harus dipesan. Kombinasi tipe analitik apa yang diterapkan perusahaan tersebut?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. Descriptive & Diagnostic Analytics</label>
+                <label><input type="radio" name="q1" value="B"> B. Diagnostic & Predictive Analytics</label>
+                <label><input type="radio" name="q1" value="C"> C. Predictive & Prescriptive Analytics</label>
+                <label><input type="radio" name="q1" value="D"> D. Descriptive & Prescriptive Analytics</label>
+            </div>
+            <div class="feedback" id="fb-q1"></div>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="question-card" id="card-q2">
+            <div class="question-text">2. Pada arsitektur Hadoop 2.0, terjadi pemisahan fungsi dari komponen MapReduce yang ada pada Hadoop 1.0. Komponen baru yang secara spesifik bertugas mengelola manajemen sumber daya (cluster resource management) dan penjadwalan (scheduling) adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. HDFS</label>
+                <label><input type="radio" name="q2" value="B"> B. YARN</label>
+                <label><input type="radio" name="q2" value="C"> C. ZooKeeper</label>
+                <label><input type="radio" name="q2" value="D"> D. Hadoop Common</label>
+            </div>
+            <div class="feedback" id="fb-q2"></div>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="question-card" id="card-q3">
+            <div class="question-text">3. Sebuah sistem e-commerce perlu memindahkan data transaksi pelanggan yang tersimpan rapi di database relasional (MySQL) ke dalam HDFS secara paralel untuk keperluan analisis batch, sekaligus menangkap log aktivitas klik pengguna (clickstream) dari web server secara streaming ke HDFS. Kombinasi tools yang paling tepat digunakan secara berurutan adalah...</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. Apache Kafka dan Apache Sqoop</label>
+                <label><input type="radio" name="q3" value="B"> B. Apache Flume dan Apache Kafka</label>
+                <label><input type="radio" name="q3" value="C"> C. Apache Sqoop dan Apache Flume</label>
+                <label><input type="radio" name="q3" value="D"> D. Apache Hive dan Apache HBase</label>
+            </div>
+            <div class="feedback" id="fb-q3"></div>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="question-card" id="card-q4">
+            <div class="question-text">4. Manakah pernyataan yang KURANG TEPAT mengenai perbedaan antara Apache HBase dan Apache Hive?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A. HBase cocok untuk akses baca/tulis real-time dengan latensi rendah, sedangkan Hive dioptimalkan untuk pemrosesan batch berskala Petabyte.</label>
+                <label><input type="radio" name="q4" value="B"> B. HBase adalah database NoSQL berbasis kolom (column-oriented), sedangkan Hive adalah data warehouse tool dengan antarmuka mirip SQL (HiveQL).</label>
+                <label><input type="radio" name="q4" value="C"> C. Keduanya menyimpan data secara terdistribusi di atas HDFS dan menggunakan ZooKeeper untuk manajemen metadata tabel.</label>
+                <label><input type="radio" name="q4" value="D"> D. Pada HBase, pembaruan data (update) akan menciptakan versi baru berdasarkan timestamp, sedangkan Hive menjalankan kueri yang diterjemahkan menjadi job MapReduce, Tez, atau Spark.</label>
+            </div>
+            <div class="feedback" id="fb-q4"></div>
+        </div>
+
+        <!-- Soal 5 -->
+        <div class="question-card" id="card-q5">
+            <div class="question-text">5. Perhatikan potongan kueri MongoDB berikut:
+<pre>db.products.find(
+  { category: "electronics", stock: { $lte: 10 } },
+  { _id: 0, name: 1, stock: 1 }
+).sort({ stock: 1 }).limit(5)</pre>
+            Apa hasil yang dikembalikan oleh kueri tersebut?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A. Menampilkan semua field dari 5 produk elektronik dengan stok di bawah 10, diurutkan dari stok terbanyak.</label>
+                <label><input type="radio" name="q5" value="B"> B. Menampilkan hanya field name dan stock dari maksimal 5 produk elektronik dengan stok kurang dari atau sama dengan 10, diurutkan dari stok paling sedikit.</label>
+                <label><input type="radio" name="q5" value="C"> C. Menghapus field _id secara permanen dari 5 dokumen produk elektronik yang stoknya kurang dari 10.</label>
+                <label><input type="radio" name="q5" value="D"> D. Menampilkan 5 produk elektronik pertama tanpa mengurutkannya, dengan menyembunyikan field name dan stock.</label>
+            </div>
+            <div class="feedback" id="fb-q5"></div>
+        </div>
+
+        <div class="section-title">Bagian II: Soal Esai (Tabel & Gambar Arsitektur/Shape)</div>
+
+        <!-- Esai 1 -->
+        <div class="question-card">
+            <div class="question-text">1. Buatlah tabel perbandingan yang membedakan antara Data Warehouse dan Data Lake (serta konsep RDBMS vs Document DB/MongoDB) minimal berdasarkan 5 aspek: Tipe data yang didukung, Penerapan skema, Struktur penyimpanan, Penanganan relasi/kualitas data, dan Pengguna/Contoh teknologinya.</div>
+            <textarea placeholder="Tuliskan poin-poin jawaban atau rancangan tabelmu di sini untuk latihan sebelum melihat kunci jawaban..."></textarea>
+            
+            <div class="essay-answer" id="ans-e1">
+                <h4>Kunci Jawaban Referensi (Berdasarkan Materi Kuliah):</h4>
+                <p><strong>A. Perbandingan Data Warehouse vs Data Lake:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspek / Karakteristik</th>
+                            <th>Data Warehouse</th>
+                            <th>Data Lake</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tipe Data</strong></td>
+                            <td>Hanya data relasional terstruktur (<em>Structured</em>)</td>
+                            <td>Campuran data terstruktur & tidak terstruktur (<em>Raw/Unstructured</em>)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Penerapan Skema</strong></td>
+                            <td><em>Schema-on-Write</em> (skema wajib didefinisikan sebelum data disimpan)</td>
+                            <td><em>Schema-on-Read</em> (skema didefinisikan saat data dibaca/diproses)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kualitas Data</strong></td>
+                            <td>Sangat terkurasi dan bersih (<em>highly curated</em>)</td>
+                            <td>Data mentah (<em>raw</em>), bervariasi, belum dibersihkan secara masif</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Biaya Penyimpanan</strong></td>
+                            <td>Relatif tinggi karena penyimpanan lokal teroptimasi</td>
+                            <td>Sangat <em>cost-effective</em>, berbasis <em>cloud storage</em> (misal AWS S3) atau HDFS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pengguna Utama</strong></td>
+                            <td><em>Business Analysts & Executive Decisions</em></td>
+                            <td><em>Data Scientists, Data Engineers, & Business Analysts</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 15px;"><strong>B. Perbandingan Istilah Relational DB (RDBMS) vs Document DB (MongoDB):</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspek</th>
+                            <th>Relational DB (RDBMS)</th>
+                            <th>Document DB (MongoDB)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Wadah Utama</strong></td>
+                            <td>Database &rarr; Table</td>
+                            <td>Database &rarr; Collection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unit Data</strong></td>
+                            <td>Row / Record & Column</td>
+                            <td>Document (JSON/BSON) & Field</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relasi Data</strong></td>
+                            <td>Join Table (Normalisasi kaku)</td>
+                            <td>Embedded Sub-document / Reference</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bahasa Manipulasi</strong></td>
+                            <td>SQL</td>
+                            <td>JavaScript</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Esai 2 -->
+        <div class="question-card">
+            <div class="question-text">2. Gambarkan diagram blok (shape) beserta arah panah aliran data dan jelaskan fungsi masing-masing komponen untuk: (A) Arsitektur Apache Flume Agent & Consolidation, dan (B) Mekanisme Operasi Tulis pada Apache HBase.</div>
+            <textarea placeholder="Gambarkan alur komponen menggunakan teks/panah dan tuliskan penjelasan masing-masing komponen di sini..."></textarea>
+
+            <div class="essay-answer" id="ans-e2">
+                <h4>Kunci Jawaban Referensi (Berdasarkan Materi Kuliah):</h4>
+                
+                <p><strong>A. Arsitektur Apache Flume (Single Agent & Consolidation):</strong></p>
+                <div class="diagram-box">[Web Server / Sumber Data] 
+       │ (Event)
+       ▼
+┌─────────────────────────────────────────────────────────┐
+│ FLUME AGENT                                             │
+│  ┌──────────┐       ┌───────────┐       ┌────────────┐  │
+│  │  Source  │ ────► │  Channel  │ ────► │    Sink    │  │
+│  └──────────┘       └───────────┘       └────────────┘  │
+└─────────────────────────────────────────────────────────┘
+                                                 │
+                                                 ▼
+                                         [HDFS / Storage]
+
+*Pola Consolidation (Multi-Agent):
+[Agent 1 (Avro Sink)] ──┐
+[Agent 2 (Avro Sink)] ──┼──► [Agent 4: Avro Source -> Channel -> Avro Sink] ──► [HDFS]
+[Agent 3 (Avro Sink)] ──┘</div>
+                <ul>
+                    <li><strong>Source:</strong> Komponen yang menerima/mengumpulkan data dari sumber eksternal (misal <em>Web Server</em>, <em>Twitter/Syslog/Avro</em>) dalam bentuk <em>Event</em>.</li>
+                    <li><strong>Channel:</strong> Penampung/antrean sementara (<em>buffer</em> seperti Memory/File Channel) yang menerima <em>event</em> dari <em>Source</em> sebelum diambil oleh <em>Sink</em>.</li>
+                    <li><strong>Sink:</strong> Komponen yang mengambil <em>event</em> dari <em>Channel</em> dan meneruskannya ke penyimpanan tujuan (seperti <em>HDFS</em>) atau ke <em>Agent</em> berikutnya.</li>
+                    <li><strong>Agent:</strong> Satu kesatuan proses JVM yang membungkus komponen <em>Source, Channel,</em> dan <em>Sink</em>.</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>B. Mekanisme Operasi Tulis (Write) pada Apache HBase:</strong></p>
+                <div class="diagram-box">[Client] ──(1. Put Request)──► [Region Server]
+                                   │
+             ┌─────────────────────┴─────────────────────┐
+             ▼                                           ▼
+  (1) Tulis ke WAL (Write Ahead Log)          (2) Salin ke MemStore (Memory Cache)
+      (Untuk recovery jika gagal)                        │
+                                                         ├──► (3) Kirim ACK ke Client
+                                                         ▼
+                                              (4) Jika penuh (Threshold), 
+                                                  flush ke [HFile] di [HDFS DataNode]</div>
+                <ul>
+                    <li><strong>ZooKeeper & .META Table:</strong> Saat pertama kali akses, <em>Client</em> menghubungi <em>ZooKeeper</em> untuk mengetahui lokasi <em>Region Server</em> yang menyimpan tabel katalog <code>.META</code> guna menemukan <em>Region</em> target.</li>
+                    <li><strong>WAL (Write Ahead Log / HLog):</strong> File log di HDFS tempat data baru pertama kali ditulis untuk menjamin pemulihan data (<em>recovery</em>) apabila <em>Region Server</em> mengalami kegagalan/mati mendadak.</li>
+                    <li><strong>MemStore:</strong> <em>Write cache</em> di memori (terdapat satu <em>MemStore</em> per <em>Column Family</em> dalam satu <em>Region</em>). Setelah data masuk ke sini, <em>Client</em> menerima konfirmasi berhasil (ACK).</li>
+                    <li><strong>HFile:</strong> Ketika kapasitas <em>MemStore</em> mencapai batas (<em>threshold</em>), data akan di-<em>flush</em> (disimpan permanen) ke disk HDFS dalam format <em>HFile</em> yang terurut berdasarkan <em>KeyValue</em>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" onclick="checkQuiz()">Selesai & Lihat Kunci Jawaban</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const quizData = {
+        q1: {
+            correct: "C",
+            explanation: "<strong>Predictive Analytics</strong> menjawab 'apa yang akan terjadi' menggunakan Machine Learning untuk meramalkan pembelian masa depan, sedangkan <strong>Prescriptive Analytics</strong> menjawab 'tindakan apa yang harus diambil' dengan memberikan rekomendasi jumlah stok otomatis."
+        },
+        q2: {
+            correct: "B",
+            explanation: "Pada Hadoop 2.0, <strong>YARN (Yet Another Resource Negotiator)</strong> dipisahkan dari MapReduce untuk menangani <em>cluster resource management</em> dan <em>job scheduling</em>, sementara MapReduce fokus pada pemrosesan data."
+        },
+        q3: {
+            correct: "C",
+            explanation: "<strong>Apache Sqoop</strong> dirancang khusus untuk mengimpor/mengekspor data terstruktur antara RDBMS (seperti MySQL) dan HDFS secara paralel. Sedangkan <strong>Apache Flume</strong> dioptimalkan untuk mengumpulkan dan memindahkan data <em>log/clickstream</em> secara <em>streaming</em> ke HDFS."
+        },
+        q4: {
+            correct: "C",
+            explanation: "Pernyataan C kurang tepat karena <strong>Apache Hive</strong> menyimpan metadata tabelnya (struktur tabel, kolom, partisi) di dalam <strong>Metastore (berbasis RDBMS seperti MySQL atau Derby)</strong>, bukan di ZooKeeper."
+        },
+        q5: {
+            correct: "B",
+            explanation: "Filter <code>{ category: 'electronics', stock: { $lte: 10 } }</code> mencari stok &le; 10. Projection <code>{ _id: 0, name: 1, stock: 1 }</code> menyembunyikan <code>_id</code> dan hanya menampilkan <code>name</code> & <code>stock</code>. Modifier <code>.sort({ stock: 1 })</code> mengurutkan secara <em>ascending</em> (terkecil ke terbesar) dan <code>.limit(5)</code> membatasi maksimal 5 dokumen."
+        }
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const total = Object.keys(quizData).length;
+
+        for (let key in quizData) {
+            const selected = document.querySelector(`input[name="${key}"]:checked`);
+            const fbDiv = document.getElementById(`fb-${key}`);
+            fbDiv.style.display = "block";
+
+            if (selected && selected.value === quizData[key].correct) {
+                score++;
+                fbDiv.className = "feedback correct";
+                fbDiv.innerHTML = `✅ <strong>Benar!</strong> (Jawaban: ${quizData[key].correct})<br>${quizData[key].explanation}`;
+            } else {
+                const userAns = selected ? selected.value : "Tidak dijawab";
+                fbDiv.className = "feedback incorrect";
+                fbDiv.innerHTML = `❌ <strong>Kurang Tepat.</strong> Jawabanmu: ${userAns} | Kunci Jawaban: <strong>${quizData[key].correct}</strong><br>${quizData[key].explanation}`;
+            }
+        }
+
+        // Tampilkan skor total
+        const banner = document.getElementById("score-banner");
+        banner.style.display = "block";
+        banner.innerHTML = `Hasil Evaluasi Soal Objektif: <strong>${score} dari ${total} Benar</strong> (Skor: ${(score / total) * 100}%)<br><span style="font-size: 0.9rem; font-weight: normal;">Silakan gulir ke bawah untuk mencocokkan jawaban esai kamu dengan referensi materi kuliah.</span>`;
+
+        // Tampilkan kunci jawaban esai
+        document.getElementById("ans-e1").style.display = "block";
+        document.getElementById("ans-e2").style.display = "block";
+
+        // Scroll halus ke atas untuk melihat skor
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
